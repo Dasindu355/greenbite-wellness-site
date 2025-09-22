@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - GreenBite</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Contact form styling */
+    .contact-form {
+      max-width: 600px;
+      margin: 1rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      width: 100%;
+    }
+    .contact-form button {
+      background: #2ecc71;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .contact-form button:hover {
+      background: #27ae60;
+    }
+    .confirm-msg {
+      margin-top: 1rem;
+      color: #2ecc71;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* FAQ accordion */
+    .faq {
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+    .faq-item {
+      border-bottom: 1px solid #ddd;
+    }
+    .faq-question {
+      background: #f9f9f9;
+      padding: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      position: relative;
+    }
+    .faq-question::after {
+      content: '+';
+      position: absolute;
+      right: 20px;
+      font-size: 20px;
+    }
+    .faq-question.active::after {
+      content: '-';
+    }
+    .faq-answer {
+      display: none;
+      padding: 12px;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">GreenBite</a>
+      <button id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+      </button>
+      <nav id="nav" class="nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="recipes.html">Recipes</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="workout.html">Workouts</a></li>
+          <li><a href="mindfulness.html">Mindfulness</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Contact Us</h2>
+    <p>Have feedback or questions? Send us a message below!</p>
+
+    <!-- ✅ Contact Form -->
+    <form id="contactForm" class="contact-form">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+      <div id="confirmMsg" class="confirm-msg"></div>
+    </form>
+
+    <!-- ✅ Embedded Map -->
+    <h3>Find Us</h3>
+    <div style="max-width: 700px; margin:auto;">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.079471316735!2d-122.08424948469232!3d37.422065979825404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb24d5f0c3b3f%3A0x9e22d6e9c0c2b!2sGoogleplex!5e0!3m2!1sen!2sus!4v1695048931737"
+        width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+
+    <!-- ✅ FAQ Accordion -->
+    <h3>Frequently Asked Questions</h3>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-question">What is GreenBite?</div>
+        <div class="faq-answer">GreenBite is a health and wellness platform that helps you eat better, move more, and live mindfully.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How do I subscribe to the newsletter?</div>
+        <div class="faq-answer">You can subscribe to our newsletter from the homepage footer by entering your email address.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I track workouts on GreenBite?</div>
+        <div class="faq-answer">Yes! Use the Workouts page to generate custom routines and follow along with the timer.</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 GreenBite. All rights reserved.</p>
+  </footer>
+
+  <!-- ✅ Script -->
+  <script>
+    // Contact form validation + storage
+    const form = document.getElementById('contactForm');
+    const confirmMsg = document.getElementById('confirmMsg');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message || !email.includes('@')) {
+        confirmMsg.textContent = '⚠ Please fill out all fields with a valid email.';
+        confirmMsg.style.color = 'red';
+        return;
+      }
+
+      // Store in localStorage
+      const feedback = JSON.parse(localStorage.getItem('feedback') || '[]');
+      feedback.push({ name, email, message, date: new Date().toLocaleString() });
+      localStorage.setItem('feedback', JSON.stringify(feedback));
+
+      // Show confirmation
+      confirmMsg.textContent = '✅ Thank you! Your message has been received.';
+      confirmMsg.style.color = '#2ecc71';
+
+      // Reset form
+      form.reset();
+    });
+
+    // FAQ accordion logic
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        q.classList.toggle('active');
+        const ans = q.nextElementSibling;
+        ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1724 @@
+:root{
+  --bg:#fbfff8; --accent:#2a9d8f; --muted:#666; --card:#ffffff; --shadow: 0 6px 18px rgba(10,10,10,0.08);
+  --radius:12px;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:#0b0b0b;line-height:1.5}
+.container{max-width:1100px;margin:0 auto;padding:1rem}
+
+.site-header{background:#fff;box-shadow:var(--shadow);position:sticky;top:0;z-index:50}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem}
+.brand{font-weight:700;color:var(--accent);text-decoration:none;font-size:1.25rem}
+
+.nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
+.nav a{color:inherit;text-decoration:none;padding:0.5rem;border-radius:8px}
+.nav a:hover{background:#f0fdf9}
+
+#hamburger{display:none;border:0;background:none;padding:0.5rem}
+.hamburger-box{width:22px;height:16px;display:inline-block;position:relative}
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after{width:22px;height:2px;background:#222;position:absolute;left:0;transition:transform .25s}
+.hamburger-inner{top:50%;transform:translateY(-50%)}
+.hamburger-inner::before{content:"";top:-7px}
+.hamburger-inner::after{content:"";top:7px}
+
+/* hero */
+.hero{padding:3rem 1rem;background:linear-gradient(120deg,#e9fff6,transparent)}
+.hero-inner{display:flex;flex-direction:column;gap:1rem;align-items:flex-start}
+.hero h1{font-size:2rem;margin:0}
+.btn{display:inline-block;background:var(--accent);color:white;padding:.6rem 1rem;border-radius:10px;text-decoration:none}
+.slogan{font-weight:600;color:var(--muted)}
+
+/* features */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:2rem 0}
+.feature{background:var(--card);padding:1rem;border-radius:12px;box-shadow:var(--shadow)}
+
+.cards{display:flex;gap:0.75rem;flex-wrap:wrap}
+.card{width:150px;background:#fafafa;padding:.5rem;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.04)}
+.card img{width:100%;height:90px;object-fit:cover;border-radius:6px}
+
+/* footer */
+.site-footer{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding:1rem 0;color:var(--muted)}
+
+/* responsive */
+@media (max-width:900px){
+  .features{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:700px){
+  .features{grid-template-columns:1fr}
+  .nav{display:none}
+  #hamburger{display:inline-block}
+  .nav.open{display:block;position:absolute;right:1rem;top:60px;background:#fff;padding:1rem;border-radius:10px;box-shadow:var(--shadow)}
+  .nav.open ul{flex-direction:column}
+}
+.progress-bar{height:14px;background:#eee;border-radius:999px;overflow:hidden}
+.progress-bar > .fill{height:100%;width:0%;transition:width .8s ease}
+.muted{color:var(--muted);font-size:.9rem;margin-top:.5rem}
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal[aria-hidden="false"] {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Close button */
+#closeModal {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+#closeModal:hover {
+  background: #e60000;
+}
+/* Recipe card images */
+.recipe-img {
+  width: 100%;        /* image will fit the card width */
+  height: 200px;      /* fixed height */
+  object-fit: cover;  /* crop nicely instead of stretching */
+  border-radius: 10px; /* optional: rounded corners */
+  display: block;
+  margin-bottom: 10px;
+}
+/* Recipe modal image */
+#recipeModal img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+/* Recipe card grid */
+#recipesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Recipe card styling */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 15px;
+  text-align: center;
+}
+
+/* Fix images inside cards */
+.recipe-img {
+  width: 100% !important;       /* always fit inside card */
+  height: 180px !important;     /* fixed height */
+  object-fit: cover !important; /* crop nicely */
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: block;
+}
+/* Modal content box */
+.modal-content {
+  max-width: 600px;     /* prevent it from stretching too wide */
+  margin: auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 90vh;     /* so it never overflows screen */
+}
+
+/* Images inside modal */
+#recipeModal img {
+  width: 100%;          /* fit the modal width */
+  max-height: 300px;    /* limit vertical size */
+  object-fit: cover;    /* crop instead of stretching */
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+/* Calculator form */
+.calc-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.calc-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.calc-form .btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.calc-form .btn:hover {
+  background: #45a049;
+}
+
+/* Table */
+#results table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+#results th, #results td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#results th {
+  background-color: #f4f4f4;
+}
+
+#results .totals td {
+  font-weight: bold;
+  background: #e8f5e9;
+}
+
+/* Delete button */
+.delete-btn {
+  background: #e74c3c;
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
+/* === Calculator Form === */
+.calc-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.calc-form input {
+  flex: 1 1 150px;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.calc-form .btn {
+  background: #2e8b57;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.calc-form .btn:hover {
+  background: #256d47;
+}
+
+/* === Results Table === */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.results-table th,
+.results-table td {
+  padding: 0.8rem;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.results-table thead {
+  background: #2e8b57;
+  color: white;
+}
+
+.results-table tfoot {
+  font-weight: bold;
+  background: #f9f9f9;
+}
+
+.results-table td button.delete-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.results-table td button.delete-btn:hover {
+  background: #c0392b;
+}
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-header .logo a {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #2e8b57;
+  text-decoration: none;
+}
+
+.site-header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.site-header nav ul li a.active {
+  color: #2e8b57;
+  font-weight: bold;
+}
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-header .logo a {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2e8b57;
+  text-decoration: none;
+}
+
+.site-header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;   /* ✅ gives equal spacing between links */
+  margin: 0;
+  padding: 0;
+}
+
+.site-header nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.site-header nav ul li a.active {
+  color: #2e8b57;
+  font-weight: bold;
+}
+/* === NAVBAR QUICK FIX === */
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+}
+
+.site-header .container {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-header .logo a {
+  font-size: 1.8rem !important;
+  font-weight: bold !important;
+  color: #2e8b57 !important;
+  text-decoration: none !important;
+}
+
+.site-header nav ul {
+  list-style: none !important;
+  display: flex !important;
+  gap: 2rem !important;   /* ✅ spacing between links */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.site-header nav ul li a {
+  text-decoration: none !important;
+  color: #333 !important;
+  font-weight: 500 !important;
+}
+
+.site-header nav ul li a.active {
+  color: #2e8b57 !important;
+  font-weight: bold !important;
+}
+/* Workout cards */
+#workoutGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+#workoutGrid .card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+#workoutGrid .card:hover {
+  transform: translateY(-5px);
+}
+
+.workout-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.workout-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card .meta {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.5em 0;
+}
+/* === Workout Card Buttons === */
+#workoutGrid .card button {
+  background: #2e8b57;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease-in-out, transform 0.1s ease-in-out;
+  margin-top: 0.5rem;
+}
+
+#workoutGrid .card button:hover {
+  background: #256d47;
+  transform: translateY(-2px);
+}
+
+/* === Modal Close Button === */
+#closeWorkoutModal {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  transition: background 0.2s ease-in-out;
+}
+
+#closeWorkoutModal:hover {
+  background: #c0392b;
+}
+/* === Recipe Card Buttons === */
+#recipesGrid .card button {
+  background: #2e8b57;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease-in-out, transform 0.1s ease-in-out;
+  margin-top: 0.5rem;
+}
+
+#recipesGrid .card button:hover {
+  background: #256d47;
+  transform: translateY(-2px);
+}
+
+/* === Modal Close Button (recipes) === */
+#closeModal {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  transition: background 0.2s ease-in-out;
+}
+
+#closeModal:hover {
+  background: #c0392b;
+}
+/* === Filter + Search Controls === */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.controls select,
+.controls input[type="text"] {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.controls select:focus,
+.controls input[type="text"]:focus {
+  border-color: #2e8b57;
+  box-shadow: 0 0 0 2px rgba(46, 139, 87, 0.2);
+}
+
+/* === Clear Button === */
+#clearFilters {
+  background: #e67e22;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+#clearFilters:hover {
+  background: #d35400;
+  transform: translateY(-2px);
+}
+/* Make all cards equal height and align button at bottom */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px; /* adjust based on your content */
+  padding: 1rem;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+#closeMindfulnessModal {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  float: right;
+}
+/* Mindfulness cards */
+#mindfulnessGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+#mindfulnessGrid .card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#mindfulnessGrid .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+#mindfulnessGrid img.mindfulness-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+/* Start button */
+#mindfulnessGrid .btn {
+  background: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+#mindfulnessGrid .btn:hover {
+  background: #43a047;
+}
+
+/* Modal styling */
+#mindfulnessModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+#mindfulnessModal .modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: fadeIn 0.3s ease;
+}
+
+#mindfulnessModal img {
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* Close button */
+#closeMindfulnessModal {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ff5252;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#closeMindfulnessModal:hover {
+  background: #e53935;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.95);}
+  to {opacity: 1; transform: scale(1);}
+}
+/* Start button styling */
+#mindfulnessGrid .btn {
+  background: linear-gradient(135deg, #4CAF50, #43a047);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 30px;   /* pill-shaped */
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+#mindfulnessGrid .btn:hover {
+  background: linear-gradient(135deg, #43a047, #388e3c);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+#mindfulnessGrid .btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+/* Contact form styling */
+.contact-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.contact-form .form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.contact-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border 0.2s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.contact-form .btn {
+  background: linear-gradient(135deg, #4CAF50, #43a047);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.contact-form .btn:hover {
+  background: linear-gradient(135deg, #43a047, #388e3c);
+  transform: translateY(-2px);
+}
+
+.form-msg {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+.footer-links {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.footer-btn {
+  padding: 8px 16px;
+  background: #2e7d32;   /* green shade */
+  color: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.footer-btn:hover {
+  background: #1b5e20;
+}
+.footer-links {
+  margin-top: 12px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.footer-btn {
+  padding: 8px 18px;
+  background: #2e7d32;   /* green */
+  color: #fff;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.footer-btn:hover {
+  background: #1b5e20;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background: #f9fff9; /* subtle background if you want */
+}
+
+.footer-links {
+  margin-top: 5px; /* reduced space */
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.footer-btn {
+  padding: 6px 16px;
+  background: #2e7d32;
+  color: #fff;
+  border-radius: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.footer-btn:hover {
+  background: #1b5e20;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 32px;   /* ⬅ bigger size */
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #e74c3c;
+  transform: scale(1.2); /* slightly bigger on hover */
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;              /* circle size */
+  height: 40px;
+  border-radius: 50%;       /* makes it round */
+  background: #e74c3c;      /* red circle */
+  color: #fff;              /* white × */
+  border: none;
+  font-size: 24px;          /* bigger × */
+  font-weight: bold;
+  line-height: 40px;        /* vertically centers the × */
+  text-align: center;       /* horizontally centers the × */
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #c0392b;      /* darker red on hover */
+  transform: scale(1.1);    /* subtle zoom */
+}
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;              /* neat circle size */
+  height: 32px;
+  border-radius: 50%;       /* round shape */
+  background: #e74c3c;      /* red circle */
+  color: #fff;              /* white × */
+  border: none;
+  font-size: 20px;          /* × size */
+  font-weight: bold;
+  line-height: 32px;        /* centers vertically */
+  text-align: center;       /* centers horizontally */
+  cursor: pointer;
+  padding: 0;               /* remove default button padding */
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #c0392b;      /* darker red */
+  transform: scale(1.1);    /* smooth hover zoom */
+}
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;       /* round */
+  background: #e74c3c;      /* red circle */
+  color: #fff;              /* white × */
+  border: none;
+  font-size: 22px;          /* size of × */
+  font-weight: bold;
+  display: flex;            /* flex centers the × */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #c0392b;      /* darker red on hover */
+  transform: scale(1.1);
+}
+/* Generator panel */
+.generator.card {
+  padding: 1rem;
+  margin-top: 1rem;
+  display: block;
+}
+
+.gen-row {
+  display:flex;
+  gap: 12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.gen-row label {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-size:0.95rem;
+}
+
+#generatedList {
+  margin-top:0.6rem;
+  padding-left:1.1rem;
+}
+
+/* Timer / controls */
+.timer-controls .btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #eee;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.progress-bar .progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#4caf50,#2e8b57);
+  transition: width 0.3s linear;
+}
+
+/* Small responsive adjustments */
+@media (max-width:720px) {
+  .gen-row { flex-direction: column; align-items: stretch; }
+  .gen-row label { width:100%; }
+}
+/* Workout Generator Styles */
+#workoutGenerator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+#workoutForm {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+#workoutOutput {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4
+}
+/* Workout Generator Section */
+.generator {
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.gen-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.gen-row label {
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.gen-row select {
+  margin-top: 0.3rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.btn {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: #27ae60;
+}
+
+/* Timer Controls */
+.timer-controls button {
+  min-width: 80px;
+}
+
+#pauseWorkout {
+  background: #ff9800;
+  color: #fff;
+}
+
+#skipWorkout {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* Progress Bar */
+.progress-holder {
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 16px;
+}
+
+.progress-fill {
+  background: #2ecc71;
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* Workout Cards */
+#workoutGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+#workoutGrid .card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+#workoutGrid .card:hover {
+  transform: translateY(-5px);
+}
+
+#workoutGrid img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+#workoutGrid h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+#workoutGrid p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.6rem;
+}
+/* Workout Generator Panel */
+.generator.card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  background: #fff;
+  max-width: 500px;
+  margin: 1.5rem auto;
+}
+
+#generatedPanel {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f9fdf9;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+}
+
+#generatedTitle {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  color: #2c3e50;
+}
+
+#generatedList {
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+#generatedList li {
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.timer-controls {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border-radius: 8px;
+  background: #eef8f0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.timer-controls strong {
+  color: #2c3e50;
+}
+
+#timerDisplay {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #27ae60;
+}
+
+/* Progress bar */
+.progress-holder {
+  margin-top: 1rem;
+  background: #e6e6e6;
+  border-radius: 10px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* Timer buttons */
+.timer-controls .btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+#startWorkout {
+  background: #27ae60;
+}
+
+#startWorkout:hover {
+  background: #219150;
+  transform: scale(1.05);
+}
+
+#pauseWorkout {
+  background: #f39c12;
+}
+
+#pauseWorkout:hover {
+  background: #d9820f;
+  transform: scale(1.05);
+}
+
+#skipWorkout {
+  background: #e74c3c;
+}
+
+#skipWorkout:hover {
+  background: #c0392b;
+  transform: scale(1.05);
+}
+/* Workout Generator Main Card */
+.generator.card {
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  background: #fff;
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center; /* Center inside */
+}
+
+/* Generated Panel */
+#generatedPanel {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #f9fdf9;
+  border-radius: 12px;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+#generatedTitle {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+/* Exercise list */
+#generatedList {
+  list-style-position: inside;
+  padding: 0;
+  margin: 1rem 0;
+  text-align: left; /* Align steps neatly */
+}
+
+#generatedList li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* Timer + Controls container */
+.timer-controls {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background: #eef8f0;
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Timer text row */
+.timer-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.1rem;
+}
+
+#timerDisplay {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #27ae60;
+}
+
+/* Buttons row */
+.timer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Progress bar */
+.progress-holder {
+  margin-top: 1rem;
+  background: #e6e6e6;
+  border-radius: 10px;
+  height: 12px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* Buttons */
+.timer-controls .btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+#startWorkout {
+  background: #27ae60;
+}
+
+#startWorkout:hover {
+  background: #219150;
+  transform: scale(1.05);
+}
+
+#pauseWorkout {
+  background: #f39c12;
+}
+
+#pauseWorkout:hover {
+  background: #d9820f;
+  transform: scale(1.05);
+}
+
+#skipWorkout {
+  background: #e74c3c;
+}
+
+#skipWorkout:hover {
+  background: #c0392b;
+  transform: scale(1.05);
+}
+/* ========== Workout Generator Styling ========== */
+.generator {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.gen-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 240px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gen-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.gen-row label {
+  font-weight: 600;
+  color: #333;
+}
+
+.gen-row select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+#generateWorkout {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #2ecc71;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+#generateWorkout:hover {
+  background: #27ae60;
+  transform: scale(1.05);
+}
+
+/* Generated workout panel */
+#generatedPanel {
+  flex: 1;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+#generatedPanel h3 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+#generatedList {
+  margin: 0.5rem 0 1.5rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Timer section */
+.timer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+.timer-info {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.timer-buttons {
+  display: flex;
+  gap: 1rem;
+}
+.timer-buttons button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 90px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.timer-buttons button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+#startWorkout { background: #2ecc71; }
+#pauseWorkout { background: #f39c12; }
+#skipWorkout { background: #e74c3c; }
+
+/* Progress bar */
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #eee;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+  transition: width 0.3s ease;
+}
+
+/* Predefined routines */
+#workoutGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+#workoutGrid .card {
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#workoutGrid .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+#workoutGrid h3 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: #2c3e50;
+}
+#workoutGrid p.meta {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+#workoutGrid button {
+  background: #2ecc71;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+#workoutGrid button:hover {
+  background: #27ae60;
+}
+
+/* Smooth fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .generator { flex-direction: column; }
+  #generatedPanel { margin-top: 1rem; }
+}
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #eee;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+  border-radius: 6px;
+  transition: width 0.4s ease-in-out; /* smooth animation */
+}
+/* Progress Bar Styling */
+.progress-bar {
+  width: 100%;
+  height: 14px;
+  background: #ddd; /* darker gray so the fill is visible */
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%; /* JS updates this */
+  background: #2ecc71; /* green by default */
+  transition: width 0.4s ease, background 0.3s ease;
+}
+/* ====== Calorie & Nutrition Calculator Styling ====== */
+
+/* Container */
+.calc-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.calc-form input,
+.calc-form select {
+  padding: 0.7rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calc-form input:focus,
+.calc-form select:focus {
+  border-color: #2ecc71;
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.25);
+  outline: none;
+}
+
+.calc-form .btn {
+  grid-column: span 2;
+  padding: 0.8rem;
+  background: #2ecc71;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.calc-form .btn:hover {
+  background: #27ae60;
+}
+
+/* Results Box */
+.results-box {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #e6f4ec;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  animation: fadeIn 0.6s ease;
+}
+
+.results-grid {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.results-grid div {
+  flex: 1;
+  background: #f9fdf9;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #e8f7ee;
+  transition: transform 0.3s ease;
+}
+
+.results-grid div:hover {
+  transform: translateY(-3px);
+}
+
+.results-grid h4 {
+  margin-bottom: 0.3rem;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.results-grid p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2ecc71;
+}
+
+/* Progress Bars */
+.progress-container {
+  margin: 0.8rem 0 1.2rem;
+}
+
+.progress-label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  display: inline-block;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #f0f0f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 6px;
+  transition: width 1s ease-in-out;
+}
+
+.carbs { background: #3498db; }
+.protein { background: #2ecc71; }
+.fat { background: #e67e22; }
+
+/* Smooth fade */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

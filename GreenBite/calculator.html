@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calorie & Nutrition Calculator</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .results-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #f9fdf9;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .results-grid {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .results-grid div {
+      flex: 1;
+    }
+    .results-grid h4 {
+      margin-bottom: 0.3rem;
+    }
+    .progress-container {
+      margin: 1rem 0;
+    }
+    .progress-label {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .progress-bar {
+      height: 10px;
+      background: #e5e5e5;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      transition: width 1s ease;
+    }
+    .carbs { background: #3498db; }
+    .protein { background: #2ecc71; }
+    .fat { background: #e67e22; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">GreenBite</a>
+      <button id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+      </button>
+      <nav id="nav" class="nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="recipes.html">Recipes</a></li>
+          <li><a href="calculator.html" class="active">Calculator</a></li>
+          <li><a href="workout.html">Workouts</a></li>
+          <li><a href="mindfulness.html">Mindfulness</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Calorie & Nutrition Calculator</h2>
+
+    <p class="intro-text">
+      Enter your details to calculate <strong>BMR</strong>, <strong>TDEE</strong>, and macronutrient breakdown.  
+    </p>
+
+    <!-- ✅ Calculator Form -->
+    <form id="calcForm" class="calc-form">
+      <input type="number" id="age" placeholder="Age (years)" required>
+      <select id="gender" required>
+        <option value="">Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <input type="number" id="height" placeholder="Height (cm)" required>
+      <input type="number" id="weight" placeholder="Weight (kg)" required>
+      <select id="activity" required>
+        <option value="">Activity Level</option>
+        <option value="1.2">Sedentary (little/no exercise)</option>
+        <option value="1.375">Lightly active (1–3 days/week)</option>
+        <option value="1.55">Moderately active (3–5 days/week)</option>
+        <option value="1.725">Very active (6–7 days/week)</option>
+        <option value="1.9">Super active (physical job)</option>
+      </select>
+      <button type="submit" class="btn">Calculate</button>
+    </form>
+
+    <!-- ✅ Results -->
+    <div id="results" class="results-box" style="display:none;">
+      <div class="results-grid">
+        <div>
+          <h4>BMR</h4>
+          <p id="bmr">0</p>
+        </div>
+        <div>
+          <h4>TDEE</h4>
+          <p id="tdee">0</p>
+        </div>
+      </div>
+
+      <h4>Macronutrients</h4>
+      <p>Carbs: <span id="carbs">0</span> g</p>
+      <div class="progress-container">
+        <div class="progress-bar"><div id="carbsBar" class="progress-fill carbs"></div></div>
+      </div>
+
+      <p>Protein: <span id="protein">0</span> g</p>
+      <div class="progress-container">
+        <div class="progress-bar"><div id="proteinBar" class="progress-fill protein"></div></div>
+      </div>
+
+      <p>Fat: <span id="fat">0</span> g</p>
+      <div class="progress-container">
+        <div class="progress-bar"><div id="fatBar" class="progress-fill fat"></div></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ✅ Scripts -->
+  <script src="js/calculator.js" defer></script>
+</body>
+</html>

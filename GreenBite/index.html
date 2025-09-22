@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GreenBite — Home</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/images/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- ✅ Correct relative path -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">GreenBite</a>
+      <button id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+      </button>
+      <nav id="nav" class="nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="recipes.html">Recipes</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="workout.html">Workouts</a></li>
+          <li><a href="mindfulness.html">Mindfulness</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner container">
+        <h1>Healthy food, happier life</h1>
+        <p id="slogan" class="slogan" aria-live="polite">Eat well. Live well.</p>
+        <a href="recipes.html" class="btn">Explore recipes</a>
+      </div>
+    </section>
+
+    <section class="features container">
+      <div class="feature">
+        <h2>Tip of the day</h2>
+        <p id="tipOfDay">Loading tip...</p>
+      </div>
+
+      <div class="feature">
+        <h2>Featured recipes</h2>
+        <div id="featuredRecipes" class="cards"></div>
+      </div>
+
+      <div class="feature">
+        <h2>Newsletter</h2>
+        <form id="newsletterForm">
+          <input type="email" id="newsletterEmail" placeholder="you@example.com" required>
+          <button type="submit" class="btn">Subscribe</button>
+          <p id="newsletterMsg" class="muted"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+<footer>
+  <p>© 2025 GreenBite. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="contact.html" class="footer-btn">Contact</a>
+    <a href="privacy.html" class="footer-btn">Privacy Policy</a>
+  </div>
+</footer>
+
+  <!-- ✅ Correct relative paths -->
+  <script src="data/recipes.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/recipes.js" defer></script>
+</body>
+</html>

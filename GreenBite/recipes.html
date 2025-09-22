@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GreenBite — Recipes</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">GreenBite</a>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="recipes.html">Recipes</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="workout.html">Workouts</a></li>
+          <li><a href="mindfulness.html">Mindfulness</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Healthy Recipes</h1>
+
+    <div class="controls" style="display:flex;gap:1rem;align-items:center;">
+      <select id="filterCategory"><option value="">All categories</option></select>
+      <input id="searchName" placeholder="Search by name" />
+      <button id="clearFilters">Clear</button>
+    </div>
+
+    <section id="recipesGrid" class="cards"></section>
+  </main>
+
+  <!-- Modal -->
+  <div id="recipeModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-content" role="document">
+      <!-- ✅ Updated close button -->
+      <button id="closeModal" class="close-btn" aria-label="Close">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ✅ Load data first, then rendering script -->
+  <script src="data/recipes.js" defer></script>
+  <script src="js/recipes.js" defer></script>
+</body>
+</html>
